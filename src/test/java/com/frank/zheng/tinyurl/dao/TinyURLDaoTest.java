@@ -19,6 +19,8 @@ public class TinyURLDaoTest {
     public void testFindById() {
         TinyUrl url = TinyUrl.createByOriginalUrl("https://www.google.com");
         int rows = tinyURLDao.insert(url);
+        System.out.println("insert " + rows + " rows");
+
         System.out.println(url.getId());
         TinyUrl tinyUrl = tinyURLDao.findById(url.getId());
         System.out.println(tinyUrl.getOriginal_url());

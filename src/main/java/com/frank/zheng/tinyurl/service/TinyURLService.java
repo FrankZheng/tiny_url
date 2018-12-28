@@ -8,8 +8,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class TinyURLService {
+
+    private static final Logger logger = Logger.getLogger("TinyURLService");
 
     private static final String TINY_URLS_KEY_PREFIX = "tiny_urls_";
 
@@ -19,7 +24,7 @@ public class TinyURLService {
     @Autowired
     private RedisService redisService;
 
-    public String idToTinyURL(int n) {
+    String idToTinyURL(int n) {
         // Map to store 62 possible characters
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -35,7 +40,7 @@ public class TinyURLService {
         return tinyUrl.toString();
     }
 
-    public int tinyUrlToID(@NonNull String tinyUrl) {
+    int tinyUrlToID(@NonNull String tinyUrl) {
         int id = 0; // initialize result
 
         // A simple base conversion logic
@@ -81,6 +86,8 @@ public class TinyURLService {
             String key = TINY_URLS_KEY_PREFIX + tinyUrl.getId();
             jedis.hset(key, "original_url", tinyUrl.getOriginal_url());
             jedis.hset(key, "tiny_url", tinyUrl.getTiny_url());
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to save to redis", e);
         }
     }
 
@@ -95,6 +102,8 @@ public class TinyURLService {
                 tinyUrlObj.setTiny_url(tinyUrl);
                 return tinyUrlObj;
             }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to load data from redis", e);
         }
 
         return null;

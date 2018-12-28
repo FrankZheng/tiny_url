@@ -33,8 +33,7 @@ public class TinyURLController {
         if (tinyUrl == null || tinyUrl.length() == 0) {
             throw new IllegalArgumentException("Invalid parameters");
         }
-        int id = tinyURLService.tinyUrlToID(tinyUrl);
-        return tinyURLDao.findById(id);
+        return tinyURLService.getTinyUrl(tinyUrl);
     }
 
 
