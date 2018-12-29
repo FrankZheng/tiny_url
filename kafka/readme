@@ -1,0 +1,9 @@
+#reference https://segmentfault.com/a/1190000015627478 about how to add topics
+#reference https://www.youtube.com/watch?v=NjHYWEV_E_o about how to use kafka in the spring boot
+
+# build docker image
+docker-compose build
+
+# run the docker
+docker-compose up -d
+

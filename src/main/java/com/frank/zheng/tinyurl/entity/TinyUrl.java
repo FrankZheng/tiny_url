@@ -1,7 +1,9 @@
 package com.frank.zheng.tinyurl.entity;
 
+import lombok.ToString;
 import org.springframework.lang.NonNull;
 
+@ToString
 public class TinyUrl {
     private int id;
     private String original_url;

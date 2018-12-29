@@ -3,18 +3,18 @@ package com.frank.zheng.tinyurl.service;
 import com.frank.zheng.tinyurl.cache.RedisService;
 import com.frank.zheng.tinyurl.dao.TinyURLDao;
 import com.frank.zheng.tinyurl.entity.TinyUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class TinyURLService {
 
-    private static final Logger logger = Logger.getLogger("TinyURLService");
+    private static final Logger logger = LoggerFactory.getLogger(TinyURLService.class);
 
     private static final String TINY_URLS_KEY_PREFIX = "tiny_urls_";
 
@@ -87,7 +87,7 @@ public class TinyURLService {
             jedis.hset(key, "original_url", tinyUrl.getOriginal_url());
             jedis.hset(key, "tiny_url", tinyUrl.getTiny_url());
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to save to redis", e);
+            logger.error("Failed to save to redis", e);
         }
     }
 
@@ -103,7 +103,7 @@ public class TinyURLService {
                 return tinyUrlObj;
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to load data from redis", e);
+            logger.error("Failed to load data from redis", e);
         }
 
         return null;
