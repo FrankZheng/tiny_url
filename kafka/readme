@@ -1,9 +1,24 @@
 #reference https://segmentfault.com/a/1190000015627478 about how to add topics
 #reference https://www.youtube.com/watch?v=NjHYWEV_E_o about how to use kafka in the spring boot
+#producer could create a new topic when send messages, should disable it on the kafka server
 
 # build docker image
 docker-compose build
 
 # run the docker
 docker-compose up -d
+
+# stop the container
+docker-compose stop
+
+# go to the kafka docker and open bash
+docker exec -it <container id> /bin/bash
+
+# create topic
+export ZK=zookeeper:2181
+./kafka-topics.sh --create --topic tiny_url_request_logs --partitions 1 --zookeeper $ZK --replication-factor 1
+
+# create a consumer to log the message produced
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic tiny_url_request_logs --from-beginning
+
 

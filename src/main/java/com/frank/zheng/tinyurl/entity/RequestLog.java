@@ -1,11 +1,16 @@
 package com.frank.zheng.tinyurl.entity;
 
+import java.util.Date;
+
 public class RequestLog {
     private String uri; //request url
     private String requestMethod; //http method
     private String beanName; //controller name
+    private String methodName;
     private String requestParams; //request params
     private String responseData; //response data
+    private Date timestamp;//log creation date
+    private int duration; //request/response duration ms
 
     public String getUri() {
         return uri;
@@ -45,5 +50,29 @@ public class RequestLog {
 
     public void setResponseData(String responseData) {
         this.responseData = responseData;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
