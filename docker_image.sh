@@ -1,3 +1,6 @@
+# reference following article about how to deploy spring boot app
+# https://dzone.com/articles/deploying-spring-boot-on-docker
+
 #!/bin/bash
 ./mvnw clean install -DskipTests && docker build -t tinyurl .
 
